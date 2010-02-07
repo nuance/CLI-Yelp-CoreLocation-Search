@@ -15,6 +15,8 @@ from AppKit import *
 from CoreLocation import *
 
 YWSID = '<insert here>'
+# The complete list of aliases lives at http://www.yelp.com/developers/documentation/category_list
+CATEGORY = 'bars' 
 
 class WhereAmIAppDelegate(NSObject):
 	locationManager = None
@@ -31,7 +33,7 @@ class WhereAmIAppDelegate(NSObject):
 		if new_location:
 			lng, lat = new_location.coordinate().longitude, new_location.coordinate().latitude
 
-			url = "http://api.yelp.com/business_review_search?num_biz_requested=5&category=bars&lat=%s&long=%s&radius=1.0&ywsid=%s" % (lat, lng, YWSID)
+			url = "http://api.yelp.com/business_review_search?num_biz_requested=5&category=%s&lat=%s&long=%s&radius=1.0&ywsid=%s" % (CATEGORY, lat, lng, YWSID)
 			
 			response = json.loads(urllib2.urlopen(url).read())
 			if response['message']['code'] != 0:
